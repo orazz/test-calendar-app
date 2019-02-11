@@ -9,6 +9,29 @@
 import UIKit
 import SpreadsheetView
 
+
+class MonthCell: Cell {
+    let label = UILabel()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: "HelveticaNeue-Regular", size: 17)
+        label.textAlignment = .center
+        contentView.addSubview(label)
+        
+        label.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        label.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        label.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: -13).isActive = true
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+}
+
 class WeekDaysCell: Cell {
     let label = UILabel()
     

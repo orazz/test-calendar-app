@@ -18,37 +18,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Pn-WP-K4i">
-                                <rect key="frame" x="0.0" y="64" width="375" height="41"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Февраля 2019 г., Неделя 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u7y-vE-WMi">
-                                        <rect key="frame" x="81" y="10" width="213" height="20"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.89803921568627454" green="0.94901960784313721" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstItem="u7y-vE-WMi" firstAttribute="centerX" secondItem="4Pn-WP-K4i" secondAttribute="centerX" id="8Lv-EY-zJF"/>
-                                    <constraint firstItem="u7y-vE-WMi" firstAttribute="top" secondItem="4Pn-WP-K4i" secondAttribute="top" constant="10" id="shr-sX-UQv"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Af-HY-qTS" customClass="SpreadsheetView" customModule="SpreadsheetView">
-                                <rect key="frame" x="0.0" y="105" width="375" height="562"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Pn-WP-K4i">
+                                        <rect key="frame" x="0.0" y="65" width="375" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Февраля 2019 г., Неделя 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u7y-vE-WMi">
+                                                <rect key="frame" x="81" y="10" width="213" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.89803921568627454" green="0.94901960784313721" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="8Af-HY-qTS" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="105" id="8Jg-WT-cug"/>
-                            <constraint firstItem="4Pn-WP-K4i" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Cz4-oz-mki"/>
-                            <constraint firstItem="4Pn-WP-K4i" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="EQa-kM-lTU"/>
-                            <constraint firstItem="8Af-HY-qTS" firstAttribute="top" secondItem="4Pn-WP-K4i" secondAttribute="bottom" id="GmQ-BQ-cl4"/>
+                            <constraint firstItem="8Af-HY-qTS" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="7cj-8e-Fbz"/>
                             <constraint firstItem="8Af-HY-qTS" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="KEg-yg-JPR"/>
                             <constraint firstItem="8Af-HY-qTS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="VIy-C0-b8d"/>
                             <constraint firstItem="8Af-HY-qTS" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="w6m-7n-uAK"/>
-                            <constraint firstItem="4Pn-WP-K4i" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="xLH-De-H4Q"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

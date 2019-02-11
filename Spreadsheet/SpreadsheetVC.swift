@@ -35,6 +35,10 @@ class SpreadsheetVC: UIViewController {
         super.viewDidLoad()
         commonInitBottomAppBar()
         spreadsheetConfig()
+        
+        let search = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: nil)
+        search.tintColor = .white
+        self.navigationItem.setRightBarButtonItems([search], animated: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -51,6 +55,7 @@ class SpreadsheetVC: UIViewController {
         
         spreadsheetView.gridStyle = .solid(width: solidWidth, color: Color.scheduleGrid)
         
+        spreadsheetView.register(MonthCell.self, forCellWithReuseIdentifier: String(describing: MonthCell.self))
         spreadsheetView.register(TimeCell.self, forCellWithReuseIdentifier: String(describing: TimeCell.self))
         spreadsheetView.register(WeekDaysCell.self, forCellWithReuseIdentifier: String(describing: WeekDaysCell.self))
         spreadsheetView.register(DatesCell.self, forCellWithReuseIdentifier: String(describing: DatesCell.self))
@@ -132,7 +137,7 @@ extension SpreadsheetVC: SpreadsheetViewDataSource, SpreadsheetViewDelegate {
     }
     
     func numberOfRows(in spreadsheetView: SpreadsheetView) -> Int {
-        return 1 + 1 + hours.count
+        return 1 + 1 + 1 + hours.count
     }
     
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, widthForColumn column: Int) -> CGFloat {
@@ -141,7 +146,7 @@ extension SpreadsheetVC: SpreadsheetViewDataSource, SpreadsheetViewDelegate {
     }
     
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, heightForRow row: Int) -> CGFloat {
-        if case 0...1 = row {
+        if case 0...2 = row {
             return 40
         } else {
             return 32
@@ -153,12 +158,25 @@ extension SpreadsheetVC: SpreadsheetViewDataSource, SpreadsheetViewDelegate {
     }
     
     func frozenRows(in spreadsheetView: SpreadsheetView) -> Int {
-        return 2
+        return 3
+    }
+    
+    func mergedCells(in spreadsheetView: SpreadsheetView) -> [CellRange] {
+        return [CellRange(from: (row: 0, column: 1), to: (row: 0, column: 7))]
     }
     
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, cellForItemAt indexPath: IndexPath) -> Cell? {
         
-        if case (1...(days.count + 1), 0) = (indexPath.column, indexPath.row) {
+        if case(0...(days.count + 1), 0) = (indexPath.column, indexPath.row) {
+            let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: MonthCell.self), for: indexPath) as! MonthCell
+            cell.backgroundColor = UIColor(rgb: 0xE5F2E6)
+            if (indexPath.column == 1) {
+                cell.label.text = getMonthYear()
+            } else {
+                cell.label.text = nil
+            }
+            return cell
+        } else if case (1...(days.count + 1), 0...1) = (indexPath.column, indexPath.row) {
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: WeekDaysCell.self), for: indexPath) as! WeekDaysCell
             cell.label.text = days[indexPath.column - 1]
             cell.label.textColor = Color.green
@@ -167,7 +185,7 @@ extension SpreadsheetVC: SpreadsheetViewDataSource, SpreadsheetViewDelegate {
             cell.gridlines.bottom = .none
             cell.gridlines.right = .none
             return cell
-        } else if case (1...(days.count + 1), 1) = (indexPath.column, indexPath.row) {
+        } else if case (1...(days.count + 1), 2) = (indexPath.column, indexPath.row) {
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: DatesCell.self), for: indexPath) as! DatesCell
             let day = arrWeekDates.thisWeek[indexPath.column - 1].toDate(format: "dd")
             if (Int(day) == getTodayInt())
@@ -181,23 +199,23 @@ extension SpreadsheetVC: SpreadsheetViewDataSource, SpreadsheetViewDelegate {
             cell.gridlines.left = .none
             cell.gridlines.right = .none
             return cell
-        } else if case (0, 0...1) = (indexPath.column, indexPath.row) {
+        } else if case (0, 0...2) = (indexPath.column, indexPath.row) {
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: TimeCell.self), for: indexPath) as! TimeCell
             cell.gridlines.left = .none
             cell.gridlines.right = .none
             cell.gridlines.top = .none
             return cell
-        } else if case (0, 2...(hours.count + 2)) = (indexPath.column, indexPath.row) {
+        } else if case (0, 3...(hours.count + 3)) = (indexPath.column, indexPath.row) {
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: TimeCell.self), for: indexPath) as! TimeCell
-            cell.label.text = hours[indexPath.row - 2]
+            cell.label.text = hours[indexPath.row - 3]
             cell.gridlines.top = .none
             cell.gridlines.left = .none
             cell.gridlines.bottom = .none
             cell.gridlines.right = .none
             return cell
-        } else if case (1...(days.count + 1), 2...(hours.count + 2)) = (indexPath.column, indexPath.row) {
+        } else if case (1...(days.count + 1), 2...(hours.count + 3)) = (indexPath.column, indexPath.row) {
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: ScheduleCell.self), for: indexPath) as! ScheduleCell
-            let text = data[indexPath.column - 1][indexPath.row - 2]
+            let text = data[indexPath.column - 1][indexPath.row - 3]
             if !text.isEmpty {
                 let color = UIColor(rgb: 0x9B51E0)
                 cell.color = color

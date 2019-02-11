@@ -9,22 +9,43 @@
 import UIKit
 import SpreadsheetView
 
-class DayTitleCell: Cell {
+class WeekDaysCell: Cell {
     let label = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "Helvetica Neue", size: 15)
+        label.font = UIFont(name: "HelveticaNeue-Bold", size: 13)
         label.textAlignment = .center
 
         contentView.addSubview(label)
         label.widthAnchor.constraint(equalToConstant: 25).isActive = true
         label.heightAnchor.constraint(equalToConstant: 25).isActive = true
         label.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        label.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 0).isActive = true
+        label.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 12).isActive = true
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+}
+
+class DatesCell: Cell {
+    let label = UILabel()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: "HelveticaNeue", size: 15)
+        label.textAlignment = .center
+        
+        contentView.addSubview(label)
+        label.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        label.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        label.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        label.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -15).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {

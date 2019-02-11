@@ -52,7 +52,8 @@ class SpreadsheetVC: UIViewController {
         spreadsheetView.gridStyle = .solid(width: solidWidth, color: Color.scheduleGrid)
         
         spreadsheetView.register(TimeCell.self, forCellWithReuseIdentifier: String(describing: TimeCell.self))
-        spreadsheetView.register(DayTitleCell.self, forCellWithReuseIdentifier: String(describing: DayTitleCell.self))
+        spreadsheetView.register(WeekDaysCell.self, forCellWithReuseIdentifier: String(describing: WeekDaysCell.self))
+        spreadsheetView.register(DatesCell.self, forCellWithReuseIdentifier: String(describing: DatesCell.self))
         spreadsheetView.register(ScheduleCell.self, forCellWithReuseIdentifier: String(describing: ScheduleCell.self))
         
         for i in 1 ... 23 {
@@ -140,7 +141,11 @@ extension SpreadsheetVC: SpreadsheetViewDataSource, SpreadsheetViewDelegate {
     }
     
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, heightForRow row: Int) -> CGFloat {
-        return 32
+        if case 0...1 = row {
+            return 40
+        } else {
+            return 32
+        }
     }
     
     func frozenColumns(in spreadsheetView: SpreadsheetView) -> Int {
@@ -154,7 +159,7 @@ extension SpreadsheetVC: SpreadsheetViewDataSource, SpreadsheetViewDelegate {
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, cellForItemAt indexPath: IndexPath) -> Cell? {
         
         if case (1...(days.count + 1), 0) = (indexPath.column, indexPath.row) {
-            let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: DayTitleCell.self), for: indexPath) as! DayTitleCell
+            let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: WeekDaysCell.self), for: indexPath) as! WeekDaysCell
             cell.label.text = days[indexPath.column - 1]
             cell.label.textColor = Color.green
             cell.gridlines.top = .none
@@ -163,7 +168,7 @@ extension SpreadsheetVC: SpreadsheetViewDataSource, SpreadsheetViewDelegate {
             cell.gridlines.right = .none
             return cell
         } else if case (1...(days.count + 1), 1) = (indexPath.column, indexPath.row) {
-            let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: DayTitleCell.self), for: indexPath) as! DayTitleCell
+            let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: DatesCell.self), for: indexPath) as! DatesCell
             let day = arrWeekDates.thisWeek[indexPath.column - 1].toDate(format: "dd")
             if (Int(day) == getTodayInt())
             {
